@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './App.css'
+import dotenv from 'dotenv';
 
 const App = () => {
 
@@ -12,6 +13,10 @@ const App = () => {
   const [rating, setRating] = useState("")
 
 
+  dotenv.config()
+
+  const cloudinary_url = process.env.CLOURINARY_URL
+
   function handleUpload(e) {
     e.preventDefault()
 
@@ -20,7 +25,7 @@ const App = () => {
     formdata.append("file", image)
     formdata.append("upload_preset", "erfanaalam")
 
-    fetch("https://api.cloudinary.com/v1_1/erfanaalam/image/upload", {
+    fetch({cloudinary_url}, {
 
       method: "POST",
       body: formdata
